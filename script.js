@@ -62,9 +62,11 @@ function realSetup() {
   //hide start button (and instructions if we make them), unhide keyboard and grid of guesses
   // document.getElementById("gameStuff").style = "display: show; margin:0px"
 
-  document.getElementById("startButton").style = "display: none; margin:0px";
-  document.getElementById("restartGame").style = "display: show; margin:0px"
-  document.getElementById("drawGrid").style = "display: show; margin:0px"
+
+  hideButton('startButton');
+  unhideButton('restartGame');
+  unhideButton('drawGrid');
+
   document.getElementById('row1').hidden = false;
   ANSWER = randomWord(wordBank);
   console.log("ANSWER: " + ANSWER);
@@ -74,6 +76,15 @@ function realSetup() {
 
   createKeyboard();
   noLoop();
+}
+
+function hideButton(id){
+  // document.getElementById(id).style = "display: none; margin:0px";
+  document.getElementById(id).hidden=true;
+}
+
+function unhideButton(id){
+  document.getElementById(id).style = "display: show; margin:0px"
 }
 
 function createKeyboard() {
