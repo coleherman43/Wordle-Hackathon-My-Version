@@ -1,0 +1,60 @@
+body {
+  background: darkgray;
+  text-align: center;
+  font-family: serif;	
+}
+
+.block.correct {
+  color: rgb(17, 185, 17); 
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.block.incorrect {
+  color: rgb(255, 0, 0); 
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.block.close {
+  color:rgb(250, 246, 11);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: lightcyan;
+}
+
+.letter { 
+  font-weight: bold;
+
+}
+
+H1 {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+
+.block {
+  width: 10%;
+  padding: 16px;
+  font-size: 20px;
+  border: black
+  stroke: black
+}
+
+.keyboard.close{
+  background-color:rgb(250, 246, 11);
+  font-family: 'Courier New', Courier, monospace;
+}
+.keyboard.incorrect{
+  background-color: rgb(255, 0, 0); 
+  font-family: 'Courier New', Courier, monospace;
+}
+.keyboard.correct{
+  background-color: rgb(17, 185, 17); 
+  font-family: 'Courier New', Courier, monospace;
+}
+.keyboard{
+  button-size: 50px;
+}
