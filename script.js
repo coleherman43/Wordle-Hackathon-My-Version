@@ -49,9 +49,9 @@ var ID_AND_LETTERS = {
 function setup() {
   createCanvas(0, 0);
 
-  document.getElementById("startButton").style = "display: show; margin:0px"
-  document.getElementById("restartGame").style = "display: none; margin:0px"
-  document.getElementById("drawGrid").style = "display: none; margin:0px"
+  unhideButton('startButton');
+  hideButton('restartGame');
+  hideButton('drawGrid');
 }
 
 function draw() {
@@ -60,12 +60,11 @@ function draw() {
 
 function realSetup() {
   //hide start button (and instructions if we make them), unhide keyboard and grid of guesses
-  // document.getElementById("gameStuff").style = "display: show; margin:0px"
-
 
   hideButton('startButton');
   unhideButton('restartGame');
   unhideButton('drawGrid');
+  unhideButton('gameStuff');
 
   document.getElementById('row1').hidden = false;
   ANSWER = randomWord(wordBank);
@@ -79,12 +78,11 @@ function realSetup() {
 }
 
 function hideButton(id){
-  // document.getElementById(id).style = "display: none; margin:0px";
   document.getElementById(id).hidden=true;
 }
 
 function unhideButton(id){
-  document.getElementById(id).style = "display: show; margin:0px"
+  document.getElementById(id).hidden=false;
 }
 
 function createKeyboard() {
@@ -352,8 +350,9 @@ window.location = ""; // reloads tab :))
 
 function gameOver(win) {
   //display text for whether you guessed the word or not, have a restart button to call restart function
-  document.getElementById("restartGame").style = "display: none; margin:0px"
-  document.getElementById("gameStuff").style = "display: none; margin:0px"
+
+  hideButton('restartGame');
+  hideButton('gamestuff');
   
   if(win == true){
     background(0);
