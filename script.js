@@ -345,23 +345,20 @@ window.location = ""; // reloads tab :))
 
 function gameOver(win) {
   //display text for whether you guessed the word or not, have a restart button to call restart function
-
   hideButton('restartGame');
   hideButton('gamestuff');
-  
   if(win){
-    background(0);
-    textSize(60);
-    textAlign(CENTER);
-    fill(1000, 0, 0);
-    text("YOU WIN", width / 2, height / 2);
-    noLoop();
+    screenMessage('YOU WIN')
   }else{
-    background(0);
-    textSize(60);
-    textAlign(CENTER);
-    fill(1000, 0, 0);
-    text("YOU LOSE", width / 2, height / 2);
-    noLoop();
+    screenMessage('YOU LOSE');
   }
+}
+
+function screenMessage(message){
+  background(0);
+  textSize(60);
+  textAlign(CENTER);
+  fill(1000, 0, 0);
+  text(message, width / 2, height / 2);
+  noLoop();
 }
