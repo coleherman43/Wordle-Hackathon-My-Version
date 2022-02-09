@@ -48,14 +48,9 @@ var ID_AND_LETTERS = {
 
 function setup() {
   createCanvas(0, 0);
-
   unhideButton('startButton');
   hideButton('restartGame');
   hideButton('drawGrid');
-}
-
-function draw() {
-
 }
 
 function realSetup() {
@@ -350,26 +345,20 @@ window.location = ""; // reloads tab :))
 
 function gameOver(win) {
   //display text for whether you guessed the word or not, have a restart button to call restart function
-
   hideButton('restartGame');
   hideButton('gamestuff');
-  
-  if(win == true){
-    background(0);
-    textSize(60);
-    textAlign(CENTER);
-    fill(1000, 0, 0);
-    text("YOU WIN", width / 2, height / 2);
-    noLoop();
+  if(win){
+    screenMessage('YOU WIN')
+  }else{
+    screenMessage('YOU LOSE');
   }
+}
 
-  if(win == false){
-    background(0);
-    textSize(60);
-    textAlign(CENTER);
-    fill(1000, 0, 0);
-    text("YOU LOSE", width / 2, height / 2);
-    noLoop();
-  }
-  
+function screenMessage(message){
+  background(0);
+  textSize(60);
+  textAlign(CENTER);
+  fill(1000, 0, 0);
+  text(message, width / 2, height / 2);
+  noLoop();
 }
