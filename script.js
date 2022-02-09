@@ -48,20 +48,14 @@ var ID_AND_LETTERS = {
 
 function setup() {
   createCanvas(0, 0);
-
   document.getElementById("startButton").style = "display: show; margin:0px"
   document.getElementById("restartGame").style = "display: none; margin:0px"
   document.getElementById("drawGrid").style = "display: none; margin:0px"
 }
 
-function draw() {
-
-}
-
 function realSetup() {
   //hide start button (and instructions if we make them), unhide keyboard and grid of guesses
   // document.getElementById("gameStuff").style = "display: show; margin:0px"
-
 
   hideButton('startButton');
   unhideButton('restartGame');
@@ -355,16 +349,14 @@ function gameOver(win) {
   document.getElementById("restartGame").style = "display: none; margin:0px"
   document.getElementById("gameStuff").style = "display: none; margin:0px"
   
-  if(win == true){
+  if(win){
     background(0);
     textSize(60);
     textAlign(CENTER);
     fill(1000, 0, 0);
     text("YOU WIN", width / 2, height / 2);
     noLoop();
-  }
-
-  if(win == false){
+  }else{
     background(0);
     textSize(60);
     textAlign(CENTER);
@@ -372,5 +364,4 @@ function gameOver(win) {
     text("YOU LOSE", width / 2, height / 2);
     noLoop();
   }
-  
 }
