@@ -48,23 +48,22 @@ var ID_AND_LETTERS = {
 
 function setup() {
   createCanvas(0, 0);
-  unhideButton('startButton');
-  hideButton('restartGame');
-  hideButton('drawGrid');
+  unhideElement('startButton');
+  hideElement('restartGame');
+  hideElement('drawGrid');
 }
 
 function realSetup() {
   //hide start button (and instructions if we make them), unhide keyboard and grid of guesses
 
-  hideButton('startButton');
-  unhideButton('restartGame');
-  unhideButton('drawGrid');
-  unhideButton('gameStuff');
-
-  document.getElementById('row1').hidden = false;
+  hideElement('startButton');
+  unhideElement('restartGame');
+  unhideElement('drawGrid');
+  unhideElement('gameStuff');
+  unhideElement('row1');
+  
   ANSWER = randomWord(wordBank);
   console.log("ANSWER: " + ANSWER);
-  
   
   createCanvas(600, 600);
 
@@ -72,11 +71,11 @@ function realSetup() {
   noLoop();
 }
 
-function hideButton(id){
+function hideElement(id){
   document.getElementById(id).hidden=true;
 }
 
-function unhideButton(id){
+function unhideElement(id){
   document.getElementById(id).hidden=false;
 }
 
@@ -257,7 +256,7 @@ function handleGuess() {
   if (word1Guessed == false) {
     word1Guessed = true;
     checkWord(word1, 'row1');
-    document.getElementById('row2').hidden=false;
+    unhideElement('row2');
   } else if (word2Guessed == false) {
     word2Guessed = true;
     checkWord(word2, 'row2');
@@ -345,10 +344,10 @@ window.location = ""; // reloads tab :))
 
 function gameOver(win) {
   //display text for whether you guessed the word or not, have a restart button to call restart function
-  hideButton('restartGame');
-  hideButton('gamestuff');
+  // hideElement('restartGame');
+  hideElement('gameStuff');
   if(win){
-    screenMessage('YOU WIN')
+    screenMessage('YOU WIN');
   }else{
     screenMessage('YOU LOSE');
   }
@@ -362,3 +361,4 @@ function screenMessage(message){
   text(message, width / 2, height / 2);
   noLoop();
 }
+
