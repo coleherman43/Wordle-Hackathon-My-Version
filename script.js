@@ -252,24 +252,24 @@ function addLetter(letter, wordNum) {
 function handleGuess() {
   //the rest of the boxes should be hidden. This unhides the next box, and determines which letters were right / close / wrong
   
-  
-  if (word1Guessed == false) {
+  let curr = findCurrWord();
+  if (curr == word1) {
     word1Guessed = true;
     checkWord(word1, 'row1');
     unhideElement('row2');
-  } else if (word2Guessed == false) {
+  } else if (curr == word2) {
     word2Guessed = true;
     checkWord(word2, 'row2');
     document.getElementById('row3').hidden=false;
-  } else if (word3Guessed == false) {
+  } else if (curr == word3) {
     word3Guessed = true;
     checkWord(word3, 'row3');
     document.getElementById('row4').hidden=false;
-  } else if (word4Guessed == false) {
+  } else if (curr == word4) {
     word4Guessed = true;
     checkWord(word4, 'row4')
     document.getElementById('row5').hidden=false;
-  } else if (word5Guessed == false) {
+  } else if (curr == word5) {
     word5Guessed = true;
     checkWord(word5, 'row5');
     gameOver(false);
@@ -368,7 +368,7 @@ function findCurrWord(){
     return word1;
   }else if(word2Guessed == false){
     return word2;
-  }else if(word3Guessesd == false){
+  }else if(word3Guessed == false){
     return word3;
   }else if(word4Guessed == false){
     return word4;
