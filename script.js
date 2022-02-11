@@ -108,20 +108,8 @@ function clickLetter(e) {
   //called through HTML when a letter is clicked  
   let letter = e.target.innerHTML;
   console.log(e.target.innerHTML);
-
-  if (word1.length < 5) {
-    addLetter(letter, word1);
-    console.log("word 1");
-  } else if (word2.length < 5) {
-    addLetter(letter, word2);
-    console.log("word 2");
-  } else if (word3.length < 5) {
-    addLetter(letter, word3);
-  } else if (word4.length < 5) {
-    addLetter(letter, word4);
-  } else if (word5.length < 5) {
-    addLetter(letter, word5);
-  } 
+  let currWord = findCurrWord();
+  addLetter(letter, currWord);
 }
 
 function addLetter(letter, wordNum) {
