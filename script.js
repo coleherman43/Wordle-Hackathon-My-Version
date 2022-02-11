@@ -4,6 +4,19 @@ var correctLetters = [];
 var incorrectLetters = [];
 var closeLetters = [];
 p5.disableFriendlyErrors = true;
+
+// REVIEW: this is crying out to be an array, e.g.
+//
+//  let words = [[],[],[],[],[]].
+//
+// Or better yet:
+//
+//  let words Array(5).fill().map(() => [])
+//
+// Try making that change and then adjusting the code to deal with it
+// may make a number of places simpler. Or at least will make it
+// possible to simplify.
+
 var word1 = [];
 var word2 = [];
 var word3 = [];
@@ -15,6 +28,25 @@ var word3Guessed = false;
 var word4Guessed = false;
 var word5Guessed = false;
 var ANSWER = "";
+
+
+// REVIEW: Since this is completely regular why not just write a
+// function like this?
+//
+//   function keyID(letter) {
+//     return "key" + letter;
+//   }
+//
+// Thought, that said, even better would be to not rely on looking up
+// DOM elements by id. If you wanted to use a dictionary in a good
+// way, you might make a dictionary mapping letters to the DOM objects
+// so you could just do:
+//
+//   letterButtons[letter].className='keyboard correct';
+//
+// or whatever. You'd need to either build that dictionary once the
+// page is loaded or by creating the buttons dynamically on page load
+// rather than writing them in your HTML.
 
 var ID_AND_LETTERS = {
   'A' : 'keyA',
