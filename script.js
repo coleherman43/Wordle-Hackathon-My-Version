@@ -278,6 +278,7 @@ function handleGuess() {
 
 function checkWord(guess, row){
   console.log("GUESS: " + guess.join(''));
+  console.log("ROW: " + row);
   console.log("ANSWER: " + ANSWER);
   if(guess.join('') == ANSWER){
     console.log("GAME OVER ------------------------")
@@ -374,6 +375,10 @@ function findCurrWord(){
   }else if(word5Guessed == false){
     return word5;
   }else{
-    return 'gameOver/error';
+    if(word5.join('') == ANSWER){
+      gameOver(true);
+    }else{
+      gameOver(false);
+    }
   }
 }
