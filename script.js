@@ -344,7 +344,7 @@ window.location = ""; // reloads tab :))
 
 function gameOver(win) {
   //display text for whether you guessed the word or not, have a restart button to call restart function
-  // hideElement('restartGame');
+
   hideElement('gameStuff');
   if(win){
     screenMessage('YOU WIN');
