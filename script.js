@@ -362,3 +362,18 @@ function screenMessage(message){
   noLoop();
 }
 
+function findCurrWord(){
+  if(word1Guessed == false){
+    return word1;
+  }else if(word2Guessed == false){
+    return word2;
+  }else if(word3Guessesd == false){
+    return word3;
+  }else if(word4Guessed == false){
+    return word4;
+  }else if(word5Guessed == false){
+    return word5;
+  }else{
+    return 'gameOver/error';
+  }
+}
