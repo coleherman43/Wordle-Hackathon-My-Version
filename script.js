@@ -364,15 +364,15 @@ function screenMessage(message){
 }
 
 function findCurrWord(){
-  if(word1Guessed == false){
+  if(!word1Guessed){
     return word1;
-  }else if(word2Guessed == false){
+  }else if(!word2Guessed){
     return word2;
-  }else if(word3Guessed == false){
+  }else if(!word3Guessed){
     return word3;
-  }else if(word4Guessed == false){
+  }else if(!word4Guessed){
     return word4;
-  }else if(word5Guessed == false){
+  }else if(!word5Guessed){
     return word5;
   }else{
     if(word5.join('') == ANSWER){
