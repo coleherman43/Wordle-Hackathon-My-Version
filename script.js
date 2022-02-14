@@ -22,12 +22,8 @@ var word2 = [];
 var word3 = [];
 var word4 = [];
 var word5 = [];
-var word1Guessed = false;
-var word2Guessed = false;
-var word3Guessed = false;
-var word4Guessed = false;
-var word5Guessed = false;
 var ANSWER = "";
+var CURRENT_WORD = 1;
 
 
 // REVIEW: Since this is completely regular why not just write a
@@ -140,15 +136,14 @@ function clickLetter(e) {
   //called through HTML when a letter is clicked  
   let letter = e.target.innerHTML;
   console.log(e.target.innerHTML);
-  let currWord = findCurrWord();
-  addLetter(letter, currWord);
+  addLetter(letter, CURRENT_WORD);
 }
 
 function addLetter(letter, wordNum) {
   //add an input letter to the word section
   console.log("Letter: " + letter);
   console.log("Word: " + wordNum);
-  if (wordNum == word1) {
+  if (wordNum == 1) {
     word1.push(letter);
     if (word1.length == 1) {
       console.log("LETTER: " + letter);
@@ -171,7 +166,7 @@ function addLetter(letter, wordNum) {
       document.getElementById('button5').innerHTML = letter;
     }
   }
-  if (wordNum == word2) {
+  if (wordNum == 2) {
     word2.push(letter);
     if (word2.length == 1) {
       console.log("LETTER: " + letter);
@@ -194,7 +189,7 @@ function addLetter(letter, wordNum) {
       document.getElementById('button10').innerHTML = letter;
     }
   }
-  if (wordNum == word3) {
+  if (wordNum == 3) {
     word3.push(letter);
     if (word3.length == 1) {
       console.log("LETTER: " + letter);
@@ -217,7 +212,7 @@ function addLetter(letter, wordNum) {
       document.getElementById('button15').innerHTML = letter;
     }
   }
-  if (wordNum == word4) {
+  if (wordNum == 4) {
     word4.push(letter);
     if (word4.length == 1) {
       console.log("LETTER: " + letter);
@@ -240,7 +235,7 @@ function addLetter(letter, wordNum) {
       document.getElementById('button20').innerHTML = letter;
     }
   }
-  if (wordNum == word5) {
+  if (wordNum == 5) {
     word5.push(letter);
     if (word5.length == 1) {
       console.log("LETTER: " + letter);
@@ -271,26 +266,24 @@ function addLetter(letter, wordNum) {
 
 function handleGuess() {
   //the rest of the boxes should be hidden. This unhides the next box, and determines which letters were right / close / wrong
-  
-  let curr = findCurrWord();
-  if (curr == word1) {
-    word1Guessed = true;
+  if (CURRENT_WORD == 1) {
+    CURRENT_WORD++;
     checkWord(word1, 'row1');
     unhideElement('row2');
-  } else if (curr == word2) {
-    word2Guessed = true;
+  } else if (CURRENT_WORD == 2) {
+    CURRENT_WORD++;
     checkWord(word2, 'row2');
     document.getElementById('row3').hidden=false;
-  } else if (curr == word3) {
-    word3Guessed = true;
+  } else if (CURRENT_WORD == 3) {
+    CURRENT_WORD++;
     checkWord(word3, 'row3');
     document.getElementById('row4').hidden=false;
-  } else if (curr == word4) {
-    word4Guessed = true;
+  } else if (CURRENT_WORD == 4) {
+    CURRENT_WORD++;
     checkWord(word4, 'row4')
     document.getElementById('row5').hidden=false;
-  } else if (curr == word5) {
-    word5Guessed = true;
+  } else if (CURRENT_WORD == 5) {
+    CURRENT_WORD++;
     checkWord(word5, 'row5');
     gameOver(false);
   }
@@ -383,22 +376,3 @@ function screenMessage(message){
   noLoop();
 }
 
-function findCurrWord(){
-  if(!word1Guessed){
-    return word1;
-  }else if(!word2Guessed){
-    return word2;
-  }else if(!word3Guessed){
-    return word3;
-  }else if(!word4Guessed){
-    return word4;
-  }else if(!word5Guessed){
-    return word5;
-  }else{
-    if(word5.join('') == ANSWER){
-      gameOver(true);
-    }else{
-      gameOver(false);
-    }
-  }
-}
