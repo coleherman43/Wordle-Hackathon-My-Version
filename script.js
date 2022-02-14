@@ -22,8 +22,8 @@ var word2 = [];
 var word3 = [];
 var word4 = [];
 var word5 = [];
-var ANSWER = "";
-var CURRENT_WORD = 1;
+var answer = "";
+var currentWord = 1;
 
 
 // REVIEW: Since this is completely regular why not just write a
@@ -90,8 +90,8 @@ function realSetup() {
   unhideElement('gameStuff');
   unhideElement('row1');
   
-  ANSWER = randomWord(wordBank);
-  console.log("ANSWER: " + ANSWER);
+  answer = randomWord(wordBank);
+  console.log("answer: " + answer);
   
   createCanvas(600, 600);
 
@@ -136,7 +136,7 @@ function clickLetter(e) {
   //called through HTML when a letter is clicked  
   let letter = e.target.innerHTML;
   console.log(e.target.innerHTML);
-  addLetter(letter, CURRENT_WORD);
+  addLetter(letter, currentWord);
 }
 
 function addLetter(letter, wordNum) {
@@ -266,24 +266,24 @@ function addLetter(letter, wordNum) {
 
 function handleGuess() {
   //the rest of the boxes should be hidden. This unhides the next box, and determines which letters were right / close / wrong
-  if (CURRENT_WORD == 1) {
-    CURRENT_WORD++;
+  if (currentWord == 1) {
+    currentWord++;
     checkWord(word1, 'row1');
     unhideElement('row2');
-  } else if (CURRENT_WORD == 2) {
-    CURRENT_WORD++;
+  } else if (currentWord == 2) {
+    currentWord++;
     checkWord(word2, 'row2');
     document.getElementById('row3').hidden=false;
-  } else if (CURRENT_WORD == 3) {
-    CURRENT_WORD++;
+  } else if (currentWord == 3) {
+    currentWord++;
     checkWord(word3, 'row3');
     document.getElementById('row4').hidden=false;
-  } else if (CURRENT_WORD == 4) {
-    CURRENT_WORD++;
+  } else if (currentWord == 4) {
+    currentWord++;
     checkWord(word4, 'row4')
     document.getElementById('row5').hidden=false;
-  } else if (CURRENT_WORD == 5) {
-    CURRENT_WORD++;
+  } else if (currentWord == 5) {
+    currentWord++;
     checkWord(word5, 'row5');
     gameOver(false);
   }
@@ -292,14 +292,14 @@ function handleGuess() {
 function checkWord(guess, row){
   console.log("GUESS: " + guess.join(''));
   console.log("ROW: " + row);
-  console.log("ANSWER: " + ANSWER);
-  if(guess.join('') == ANSWER){
+  console.log("answer: " + answer);
+  if(guess.join('') == answer){
     console.log("GAME OVER ------------------------")
     gameOver(true);
     
   }
   
-  console.log("answer: " + ANSWER);
+  console.log("answer: " + answer);
   console.log("guess: " + guess);
   for(let i = 0; i < guess.length; i++){
     checkLetter(guess, guess[i], row, i);
@@ -311,11 +311,11 @@ function checkLetter(guess, letter, row, position){
   //for a letter that's passed in, add it to an array (correct letters, wrong, etc.) and then pass it to updateLetter
   
   
-  if(ANSWER.indexOf(letter) == -1 && incorrectLetters.indexOf(letter) == -1){
+  if(answer.indexOf(letter) == -1 && incorrectLetters.indexOf(letter) == -1){
     incorrectLetters.push(letter);
     updateLetter(letter, 'incorrect', row, position);
     
-  }else if(ANSWER.indexOf(letter) == guess.indexOf(letter) && correctLetters.indexOf(letter) == -1){
+  }else if(answer.indexOf(letter) == guess.indexOf(letter) && correctLetters.indexOf(letter) == -1){
     correctLetters.push(letter);
     updateLetter(letter, 'correct', row, position);
   }else if(closeLetters.indexOf(letter) == -1){
