@@ -1,3 +1,5 @@
+//Currently shortening addLetter. Made array of word1, 2, etc. and changing access of each to pull from words
+
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', ];
 var correctLetters = [];
@@ -16,6 +18,8 @@ p5.disableFriendlyErrors = true;
 // Try making that change and then adjusting the code to deal with it
 // may make a number of places simpler. Or at least will make it
 // possible to simplify.
+
+let words = Array(5).fill().map(() => [])
 
 var word1 = [];
 var word2 = [];
@@ -143,121 +147,13 @@ function addLetter(letter, wordNum) {
   //add an input letter to the word section
   console.log("Letter: " + letter);
   console.log("Word: " + wordNum);
-  if (wordNum == 1) {
-    word1.push(letter);
-    if (word1.length == 1) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button1').innerHTML = letter;
-    }
-    if (word1.length == 2) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button2').innerHTML = letter;
-    }
-    if (word1.length == 3) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button3').innerHTML = letter;
-    }
-    if (word1.length == 4) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button4').innerHTML = letter;
-    }
-    if (word1.length == 5) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button5').innerHTML = letter;
-    }
-  }
-  if (wordNum == 2) {
-    word2.push(letter);
-    if (word2.length == 1) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button6').innerHTML = letter;
-    }
-    if (word2.length == 2) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button7').innerHTML = letter;
-    }
-    if (word2.length == 3) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button8').innerHTML = letter;
-    }
-    if (word2.length == 4) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button9').innerHTML = letter;
-    }
-    if (word2.length == 5) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button10').innerHTML = letter;
-    }
-  }
-  if (wordNum == 3) {
-    word3.push(letter);
-    if (word3.length == 1) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button11').innerHTML = letter;
-    }
-    if (word3.length == 2) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button12').innerHTML = letter;
-    }
-    if (word3.length == 3) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button13').innerHTML = letter;
-    }
-    if (word3.length == 4) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button14').innerHTML = letter;
-    }
-    if (word3.length == 5) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button15').innerHTML = letter;
-    }
-  }
-  if (wordNum == 4) {
-    word4.push(letter);
-    if (word4.length == 1) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button16').innerHTML = letter;
-    }
-    if (word4.length == 2) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button17').innerHTML = letter;
-    }
-    if (word4.length == 3) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button18').innerHTML = letter;
-    }
-    if (word4.length == 4) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button19').innerHTML = letter;
-    }
-    if (word4.length == 5) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button20').innerHTML = letter;
-    }
-  }
-  if (wordNum == 5) {
-    word5.push(letter);
-    if (word5.length == 1) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button21').innerHTML = letter;
-    }
-    if (word5.length == 2) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button22').innerHTML = letter;
-    }
-    if (word5.length == 3) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button23').innerHTML = letter;
-    }
-    if (word5.length == 4) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button24').innerHTML = letter;
-    }
-    if (word5.length == 5) {
-      console.log("LETTER: " + letter);
-      document.getElementById('button25').innerHTML = letter;
-    }
-  }
+  console.log("Arr: " + words[wordNum]);
+
+  words[wordNum].push(letter);
+  let button = "button" + ((wordNum-1)*5 + words[wordNum].length).toString();
+  console.log("button text: " + button);
+  document.getElementById(button).innerHTML=letter;
+  
   let x = document.createElement("guessedLetter");
   x.innerHTML = letter;
   document.getElementById("guessed").appendChild(x);
