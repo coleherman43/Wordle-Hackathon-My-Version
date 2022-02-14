@@ -1,23 +1,9 @@
-//Currently shortening addLetter. Made array of word1, 2, etc. and changing access of each to pull from words
-
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', ];
 var correctLetters = [];
 var incorrectLetters = [];
 var closeLetters = [];
 p5.disableFriendlyErrors = true;
-
-// REVIEW: this is crying out to be an array, e.g.
-//
-//  let words = [[],[],[],[],[]].
-//
-// Or better yet:
-//
-//  let words Array(5).fill().map(() => [])
-//
-// Try making that change and then adjusting the code to deal with it
-// may make a number of places simpler. Or at least will make it
-// possible to simplify.
 
 let words = Array(5).fill().map(() => [])
 
