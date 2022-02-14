@@ -4,17 +4,45 @@ var correctLetters = [];
 var incorrectLetters = [];
 var closeLetters = [];
 p5.disableFriendlyErrors = true;
+
+// REVIEW: this is crying out to be an array, e.g.
+//
+//  let words = [[],[],[],[],[]].
+//
+// Or better yet:
+//
+//  let words Array(5).fill().map(() => [])
+//
+// Try making that change and then adjusting the code to deal with it
+// may make a number of places simpler. Or at least will make it
+// possible to simplify.
+
 var word1 = [];
 var word2 = [];
 var word3 = [];
 var word4 = [];
 var word5 = [];
-var word1Guessed = false;
-var word2Guessed = false;
-var word3Guessed = false;
-var word4Guessed = false;
-var word5Guessed = false;
-var ANSWER = "";
+var answer = "";
+var currentWord = 1;
+
+
+// REVIEW: Since this is completely regular why not just write a
+// function like this?
+//
+//   function keyID(letter) {
+//     return "key" + letter;
+//   }
+//
+// Thought, that said, even better would be to not rely on looking up
+// DOM elements by id. If you wanted to use a dictionary in a good
+// way, you might make a dictionary mapping letters to the DOM objects
+// so you could just do:
+//
+//   letterButtons[letter].className='keyboard correct';
+//
+// or whatever. You'd need to either build that dictionary once the
+// page is loaded or by creating the buttons dynamically on page load
+// rather than writing them in your HTML.
 
 var ID_AND_LETTERS = {
   'A' : 'keyA',
@@ -62,8 +90,8 @@ function realSetup() {
   unhideElement('gameStuff');
   unhideElement('row1');
   
-  ANSWER = randomWord(wordBank);
-  console.log("ANSWER: " + ANSWER);
+  answer = randomWord(wordBank);
+  console.log("answer: " + answer);
   
   createCanvas(600, 600);
 
@@ -108,27 +136,14 @@ function clickLetter(e) {
   //called through HTML when a letter is clicked  
   let letter = e.target.innerHTML;
   console.log(e.target.innerHTML);
-
-  if (word1.length < 5) {
-    addLetter(letter, word1);
-    console.log("word 1");
-  } else if (word2.length < 5) {
-    addLetter(letter, word2);
-    console.log("word 2");
-  } else if (word3.length < 5) {
-    addLetter(letter, word3);
-  } else if (word4.length < 5) {
-    addLetter(letter, word4);
-  } else if (word5.length < 5) {
-    addLetter(letter, word5);
-  } 
+  addLetter(letter, currentWord);
 }
 
 function addLetter(letter, wordNum) {
   //add an input letter to the word section
   console.log("Letter: " + letter);
   console.log("Word: " + wordNum);
-  if (wordNum == word1) {
+  if (wordNum == 1) {
     word1.push(letter);
     if (word1.length == 1) {
       console.log("LETTER: " + letter);
@@ -151,7 +166,7 @@ function addLetter(letter, wordNum) {
       document.getElementById('button5').innerHTML = letter;
     }
   }
-  if (wordNum == word2) {
+  if (wordNum == 2) {
     word2.push(letter);
     if (word2.length == 1) {
       console.log("LETTER: " + letter);
@@ -174,7 +189,7 @@ function addLetter(letter, wordNum) {
       document.getElementById('button10').innerHTML = letter;
     }
   }
-  if (wordNum == word3) {
+  if (wordNum == 3) {
     word3.push(letter);
     if (word3.length == 1) {
       console.log("LETTER: " + letter);
@@ -197,7 +212,7 @@ function addLetter(letter, wordNum) {
       document.getElementById('button15').innerHTML = letter;
     }
   }
-  if (wordNum == word4) {
+  if (wordNum == 4) {
     word4.push(letter);
     if (word4.length == 1) {
       console.log("LETTER: " + letter);
@@ -220,7 +235,7 @@ function addLetter(letter, wordNum) {
       document.getElementById('button20').innerHTML = letter;
     }
   }
-  if (wordNum == word5) {
+  if (wordNum == 5) {
     word5.push(letter);
     if (word5.length == 1) {
       console.log("LETTER: " + letter);
@@ -251,26 +266,24 @@ function addLetter(letter, wordNum) {
 
 function handleGuess() {
   //the rest of the boxes should be hidden. This unhides the next box, and determines which letters were right / close / wrong
-  
-  
-  if (word1Guessed == false) {
-    word1Guessed = true;
+  if (currentWord == 1) {
+    currentWord++;
     checkWord(word1, 'row1');
     unhideElement('row2');
-  } else if (word2Guessed == false) {
-    word2Guessed = true;
+  } else if (currentWord == 2) {
+    currentWord++;
     checkWord(word2, 'row2');
     document.getElementById('row3').hidden=false;
-  } else if (word3Guessed == false) {
-    word3Guessed = true;
+  } else if (currentWord == 3) {
+    currentWord++;
     checkWord(word3, 'row3');
     document.getElementById('row4').hidden=false;
-  } else if (word4Guessed == false) {
-    word4Guessed = true;
+  } else if (currentWord == 4) {
+    currentWord++;
     checkWord(word4, 'row4')
     document.getElementById('row5').hidden=false;
-  } else if (word5Guessed == false) {
-    word5Guessed = true;
+  } else if (currentWord == 5) {
+    currentWord++;
     checkWord(word5, 'row5');
     gameOver(false);
   }
@@ -278,14 +291,15 @@ function handleGuess() {
 
 function checkWord(guess, row){
   console.log("GUESS: " + guess.join(''));
-  console.log("ANSWER: " + ANSWER);
-  if(guess.join('') == ANSWER){
+  console.log("ROW: " + row);
+  console.log("answer: " + answer);
+  if(guess.join('') == answer){
     console.log("GAME OVER ------------------------")
     gameOver(true);
     
   }
   
-  console.log("answer: " + ANSWER);
+  console.log("answer: " + answer);
   console.log("guess: " + guess);
   for(let i = 0; i < guess.length; i++){
     checkLetter(guess, guess[i], row, i);
@@ -297,11 +311,11 @@ function checkLetter(guess, letter, row, position){
   //for a letter that's passed in, add it to an array (correct letters, wrong, etc.) and then pass it to updateLetter
   
   
-  if(ANSWER.indexOf(letter) == -1 && incorrectLetters.indexOf(letter) == -1){
+  if(answer.indexOf(letter) == -1 && incorrectLetters.indexOf(letter) == -1){
     incorrectLetters.push(letter);
     updateLetter(letter, 'incorrect', row, position);
     
-  }else if(ANSWER.indexOf(letter) == guess.indexOf(letter) && correctLetters.indexOf(letter) == -1){
+  }else if(answer.indexOf(letter) == guess.indexOf(letter) && correctLetters.indexOf(letter) == -1){
     correctLetters.push(letter);
     updateLetter(letter, 'correct', row, position);
   }else if(closeLetters.indexOf(letter) == -1){
@@ -344,7 +358,7 @@ window.location = ""; // reloads tab :))
 
 function gameOver(win) {
   //display text for whether you guessed the word or not, have a restart button to call restart function
-  // hideElement('restartGame');
+
   hideElement('gameStuff');
   if(win){
     screenMessage('YOU WIN');
