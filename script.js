@@ -1,3 +1,4 @@
+//CURRENT: MAKING 
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', ];
 var correctLetters = [];
@@ -34,36 +35,6 @@ var currentWord = 1;
 // page is loaded or by creating the buttons dynamically on page load
 // rather than writing them in your HTML.
 
-var ID_AND_LETTERS = {
-  'A' : 'keyA',
-  'B' : 'keyB',
-  'C' : 'keyC',
-  'D' : 'keyD',
-  'E' : 'keyE',
-  'F' : 'keyF',
-  'G' : 'keyG',
-  'H' : 'keyH',
-  'I' : 'keyI',
-  'J' : 'keyJ',
-  'K' : 'keyK',
-  'L' : 'keyL',
-  'M' : 'keyM',
-  'N' : 'keyN',
-  'O' : 'keyO',
-  'P' : 'keyP',
-  'Q' : 'keyQ',
-  'R' : 'keyR',
-  'S' : 'keyS',
-  'T' : 'keyT',
-  'U' : 'keyU',
-  'V' : 'keyV',
-  'W' : 'keyW',
-  'X' : 'keyX',
-  'Y' : 'keyY',
-  'Z' : 'keyZ',
-}
-
-
 function setup() {
   createCanvas(0, 0);
   unhideElement('startButton');
@@ -98,9 +69,6 @@ function unhideElement(id){
 }
 
 function createKeyboard() {
-  //<button onclick="guess(this.id)" id="a" class="notGuessed">a</button>
-  //keyboard setup
-
   for (let i = 0; i < alphabet.length; i++) {
     let x = document.createElement("button");
     x.id = 'key' + alphabet[i];
@@ -212,7 +180,7 @@ function checkLetter(guess, letter, row, position){
 function updateLetter(letter, category, row, position){
   //take a letter and which type it is (right, wrong, close) and give it a color
   //to get the id of the element we're using a dictionary, which has a key (the letter) and a value (the id), just makes it much easier than typing 27 if statements
-  let id = ID_AND_LETTERS[letter].toString();
+  let id = keyID(letter);
   console.log("ID: " + id);
   
   if(category == 'correct'){
@@ -227,6 +195,9 @@ function updateLetter(letter, category, row, position){
   }
 }
 
+function keyID(letter){
+  return ("key" + letter).toString();
+}
 
 function randomWord(wordBank) {
   // Calls random word from the word game for the user to guess
