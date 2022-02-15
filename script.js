@@ -1,39 +1,18 @@
-//CURRENT: MAKING 
+//CURRENT: FIXING CHECKWORD AND COLOR CODING BREAKING
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', ];
 var correctLetters = [];
 var incorrectLetters = [];
 var closeLetters = [];
 p5.disableFriendlyErrors = true;
-
 let words = Array(5).fill().map(() => [])
-
 var word1 = [];
 var word2 = [];
 var word3 = [];
 var word4 = [];
 var word5 = [];
 var answer = "";
-var currentWord = 1;
-
-
-// REVIEW: Since this is completely regular why not just write a
-// function like this?
-//
-//   function keyID(letter) {
-//     return "key" + letter;
-//   }
-//
-// Thought, that said, even better would be to not rely on looking up
-// DOM elements by id. If you wanted to use a dictionary in a good
-// way, you might make a dictionary mapping letters to the DOM objects
-// so you could just do:
-//
-//   letterButtons[letter].className='keyboard correct';
-//
-// or whatever. You'd need to either build that dictionary once the
-// page is loaded or by creating the buttons dynamically on page load
-// rather than writing them in your HTML.
+var currentWord = 0;
 
 function setup() {
   createCanvas(0, 0);
@@ -104,7 +83,7 @@ function addLetter(letter, wordNum) {
   console.log("Arr: " + words[wordNum]);
 
   words[wordNum].push(letter);
-  let button = "button" + ((wordNum-1)*5 + words[wordNum].length).toString();
+  let button = "button" + ((wordNum)*5 + words[wordNum].length).toString();
   console.log("button text: " + button);
   document.getElementById(button).innerHTML=letter;
   
@@ -116,28 +95,21 @@ function addLetter(letter, wordNum) {
 
 function handleGuess() {
   //the rest of the boxes should be hidden. This unhides the next box, and determines which letters were right / close / wrong
-  if (currentWord == 1) {
-    currentWord++;
-    checkWord(word1, 'row1');
-    unhideElement('row2');
-  } else if (currentWord == 2) {
-    currentWord++;
-    checkWord(word2, 'row2');
-    document.getElementById('row3').hidden=false;
-  } else if (currentWord == 3) {
-    currentWord++;
-    checkWord(word3, 'row3');
-    document.getElementById('row4').hidden=false;
-  } else if (currentWord == 4) {
-    currentWord++;
-    checkWord(word4, 'row4')
-    document.getElementById('row5').hidden=false;
-  } else if (currentWord == 5) {
-    currentWord++;
-    checkWord(word5, 'row5');
-    gameOver(false);
+  if(currentWord == 5){
+    checkWord(words[5], 'row5');
   }
+  
+  let currentRow = 'row' + currentWord;
+  let nextRow = 'row' + (currentWord+1);
+  console.log(currentWord);
+  console.log("words[currentWord]: " + words[currentWord]);
+  checkWord(words[currentWord], currentRow);
+  document.getElementById(nextRow).hidden=false;
+  
+  currentWord++;
 }
+
+
 
 function checkWord(guess, row){
   console.log("GUESS: " + guess.join(''));
