@@ -75,7 +75,9 @@ function clickLetter(e) {
   //called through HTML when a letter is clicked  
   let letter = e.target.innerHTML;
   console.log(e.target.innerHTML);
-  addLetter(letter, currentWord);
+  if(words[currentWord].length < 5){
+    addLetter(letter, currentWord);
+  }
 }
 
 function addLetter(letter, wordNum) {
