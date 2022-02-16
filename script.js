@@ -1,6 +1,5 @@
 //CURRENT: 
-//PRIMARY: WIN AND LOSE SCENARIOS DONT WORK
-// SECONDARY: IF STATEMENTS UNDER CHECKLETTER ARE CAUSING ISSUES WITH COLOR CODING
+//PRIMARY: IF STATEMENTS UNDER CHECKLETTER ARE CAUSING ISSUES WITH COLOR CODING
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', ];
 var correctLetters = [];
@@ -8,11 +7,6 @@ var incorrectLetters = [];
 var closeLetters = [];
 p5.disableFriendlyErrors = true;
 let words = Array(5).fill().map(() => [])
-var word1 = [];
-var word2 = [];
-var word3 = [];
-var word4 = [];
-var word5 = [];
 var answer = "";
 var currentWord = 0;
 
@@ -63,11 +57,11 @@ function createKeyboard() {
 function deleteLetter(id) {
   console.log('buttonDeleted');
   document.getElementById(id).innerHTML = "_";
-  word1.splice(0,1);
-  word2.splice(0,1);
-  word3.splice(0,1);
-  word4.splice(0,1);
-  word5.splice(0,1);
+  // words[1].splice(0,1);
+  // word2.splice(0,1);
+  // word3.splice(0,1);
+  // word4.splice(0,1);
+  // word5.splice(0,1);
 
 }
 
