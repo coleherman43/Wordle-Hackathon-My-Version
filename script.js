@@ -19,18 +19,14 @@ function setup() {
 
 function realSetup() {
   //hide start button (and instructions if we make them), unhide keyboard and grid of guesses
-
   hideElement('startButton');
   unhideElement('restartGame');
   unhideElement('drawGrid');
   unhideElement('gameStuff');
   unhideElement('row1');
-  
   answer = randomWord(wordBank);
   console.log("answer: " + answer);
-  
   createCanvas(600, 600);
-
   createKeyboard();
   noLoop();
 }
@@ -74,6 +70,10 @@ function clickLetter(e) {
   }
 }
 
+function getButtonId(wordNum){
+  return "button" + ((wordNum)*5 + words[wordNum].length).toString();
+}
+
 function addLetter(letter, wordNum) {
   //add an input letter to the word section
   console.log("Letter: " + letter);
@@ -81,7 +81,7 @@ function addLetter(letter, wordNum) {
   console.log("Arr: " + words[wordNum]);
 
   words[wordNum].push(letter);
-  let button = "button" + ((wordNum)*5 + words[wordNum].length).toString();
+  let button = getButtonId(wordNum);
   console.log("button text: " + button);
   document.getElementById(button).innerHTML=letter;
   
@@ -99,6 +99,7 @@ function handleGuess() {
   console.log("CURRENT ROW: " + currentRow);
   console.log("NEXT ROW: " + nextRow);
   
+  //loss case - when you're out of guesses
   if(currentWord == 4){
   checkWord(words[currentWord], currentRow);
   gameOver(false);
