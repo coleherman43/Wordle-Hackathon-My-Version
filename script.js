@@ -1,4 +1,6 @@
-//CURRENT: FIXING CHECKWORD AND COLOR CODING BREAKING
+//CURRENT: 
+//PRIMARY: WIN AND LOSE SCENARIOS DONT WORK
+// SECONDARY: IF STATEMENTS UNDER CHECKLETTER ARE CAUSING ISSUES WITH COLOR CODING
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', ];
 var correctLetters = [];
@@ -95,12 +97,18 @@ function addLetter(letter, wordNum) {
 
 function handleGuess() {
   //the rest of the boxes should be hidden. This unhides the next box, and determines which letters were right / close / wrong
-  if(currentWord == 5){
-    checkWord(words[5], 'row5');
-  }
+
+  let currentRow = 'row' + (currentWord+1);
+  let nextRow = 'row' + (currentWord+2);
+  console.log("CURRENT ROW: " + currentRow);
+  console.log("NEXT ROW: " + nextRow);
   
-  let currentRow = 'row' + currentWord;
-  let nextRow = 'row' + (currentWord+1);
+  if(currentWord == 4){
+  checkWord(words[currentWord], currentRow);
+  gameOver(false);
+}
+
+  
   console.log(currentWord);
   console.log("words[currentWord]: " + words[currentWord]);
   checkWord(words[currentWord], currentRow);
@@ -112,13 +120,11 @@ function handleGuess() {
 
 
 function checkWord(guess, row){
-  console.log("GUESS: " + guess.join(''));
+  console.log("GUESS: " + guess);
   console.log("ROW: " + row);
   console.log("answer: " + answer);
   if(guess.join('') == answer){
-    console.log("GAME OVER ------------------------")
     gameOver(true);
-    
   }
   
   console.log("answer: " + answer);
@@ -151,7 +157,6 @@ function checkLetter(guess, letter, row, position){
 
 function updateLetter(letter, category, row, position){
   //take a letter and which type it is (right, wrong, close) and give it a color
-  //to get the id of the element we're using a dictionary, which has a key (the letter) and a value (the id), just makes it much easier than typing 27 if statements
   let id = keyID(letter);
   console.log("ID: " + id);
   
