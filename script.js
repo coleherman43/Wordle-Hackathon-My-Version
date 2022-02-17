@@ -1,4 +1,4 @@
-//CURRENT: 
+//CURRENT: Just added lines using getButtonId under checkletter and commented. Don't commit and push till further updated
 //PRIMARY: IF STATEMENTS UNDER CHECKLETTER ARE CAUSING ISSUES WITH COLOR CODING
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', ];
@@ -135,18 +135,19 @@ function checkWord(guess, row){
 function checkLetter(guess, letter, row, position){
   //for a letter that's passed in, add it to an array (correct letters, wrong, etc.) and then pass it to updateLetter
   
-  
   if(answer.indexOf(letter) == -1 && incorrectLetters.indexOf(letter) == -1){
+    //use getButtonId to update here
     incorrectLetters.push(letter);
     updateLetter(letter, 'incorrect', row, position);
     
   }else if(answer.indexOf(letter) == guess.indexOf(letter) && correctLetters.indexOf(letter) == -1){
     correctLetters.push(letter);
     updateLetter(letter, 'correct', row, position);
-  }else if(closeLetters.indexOf(letter) == -1){
+  }else if(closeLetters.indexOf(letter) == -1 && incorrectLetters.indexOf(letter) == -1 && correctLetters.indexOf(letter) == -1){
     closeLetters.push(letter);
     updateLetter(letter, 'close', row, position);
   }
+  
   console.log("correct letters arr: " + correctLetters);
   console.log("incorrect letters arr: " + incorrectLetters);
   console.log("close letters arr: " + closeLetters);
