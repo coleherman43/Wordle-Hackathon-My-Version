@@ -1,5 +1,5 @@
-//CURRENT: Fixing repeat-letter color bug
-//PRIMARY: Repeat letters don't get colored
+//CURRENT: (update to version is just from deleting current)
+//PRIMARY: 
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', ];
 var correctLetters = [];
@@ -171,7 +171,7 @@ function updateLetter(letter, category, row, position){
 
   // console.log("ID: " + id);
   if(category == 'correct'){
-    document.getElementById(id).className='keyboard correct';
+    // document.getElementById(id).className='keyboard correct';
     changeButtonColor(buttonId, 'green');
   }
   if(category == 'incorrect'){
@@ -179,7 +179,7 @@ function updateLetter(letter, category, row, position){
     changeButtonColor(buttonId, 'red');
   }
   if(category == 'close'){
-    document.getElementById(id).className='keyboard close';
+    // document.getElementById(id).className='keyboard close';
     changeButtonColor(buttonId, 'yellow');
   }
 }
