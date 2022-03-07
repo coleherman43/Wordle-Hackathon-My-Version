@@ -56,11 +56,11 @@ function createKeyboard() {
   document.getElementById("keyboard").appendChild(deleteButton);
 }
 
-function deleteLetter(id) {
-  console.log('buttonDeleted' + id);
-  document.getElementById(id).innerHTML = "_";
- 
-
+function deleteLetter() {
+  let curr = getButtonId(currentWord, null);
+  console.log("deleted " + curr);
+  document.getElementById(curr).innerHTML = "_";
+  words[currentWord].pop();
 }
 
 function clickLetter(e) {
@@ -73,7 +73,7 @@ function clickLetter(e) {
 }
 
 function getButtonId(wordNum, pos){
-  //returns the id of the button where you would update to display a letter on the guess screen
+  //returns the id of the button where you would update to display a letter on the guess screen. If pos is null, function finds last character. otherwise it finds specified position
   console.log("UNDER GETBUTTON ID -----");
   console.log("WORDNUM " + wordNum);
   console.log("POSITION " + pos);
@@ -98,9 +98,9 @@ function addLetter(letter, wordNum) {
   console.log("button text: " + button);
   document.getElementById(button).innerHTML=letter;
   
-  let x = document.createElement("guessedLetter");
-  x.innerHTML = letter;
-  document.getElementById("guessed").appendChild(x);
+  // let x = document.createElement("guessedLetter");
+  // x.innerHTML = letter;
+  // document.getElementById("guessed").appendChild(x);
 
 }
 
