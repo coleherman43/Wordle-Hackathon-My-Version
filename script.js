@@ -1,4 +1,4 @@
-//CURRENT: Changed colors in css
+//CURRENT: Changing deleteLetter to work
 //PRIMARY: 
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', 'PROXY'];
@@ -48,16 +48,18 @@ function createKeyboard() {
     x.onclick = clickLetter;
     document.getElementById("keyboard").appendChild(x);
   }
+  let deleteButton = document.createElement("button");
+  deleteButton.id = 'deleteButton';
+  deleteButton.innerHTML = 'DELETE';
+  deleteButton.class = keyboard;
+  deleteButton.onclick = deleteLetter;
+  document.getElementById("keyboard").appendChild(deleteButton);
 }
 
 function deleteLetter(id) {
-  console.log('buttonDeleted');
+  console.log('buttonDeleted' + id);
   document.getElementById(id).innerHTML = "_";
-  // words[1].splice(0,1);
-  // word2.splice(0,1);
-  // word3.splice(0,1);
-  // word4.splice(0,1);
-  // word5.splice(0,1);
+ 
 
 }
 
