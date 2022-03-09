@@ -1,4 +1,4 @@
-//CURRENT: Changing deleteLetter to work
+//CURRENT: Changing deleteLetter to work - look for where currentWord updates to fix last letter of last word still being deletable (nothing to update in version control, it's just this message)
 //PRIMARY: 
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', 'PROXY'];
@@ -56,6 +56,10 @@ function createKeyboard() {
   document.getElementById("keyboard").appendChild(deleteButton);
 }
 
+function createGrid(){
+  for(let i = 0; i < 5; i < )
+}
+
 function deleteLetter() {
   let curr = getButtonId(currentWord, null);
   console.log("deleted " + curr);
@@ -109,8 +113,7 @@ function handleGuess() {
 
   let currentRow = 'row' + (currentWord+1);
   let nextRow = 'row' + (currentWord+2);
-  // console.log("CURRENT ROW: " + currentRow);
-  // console.log("NEXT ROW: " + nextRow);
+
   
   //loss case - when you're out of guesses
   if(currentWord == 4){
