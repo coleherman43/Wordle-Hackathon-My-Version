@@ -1,4 +1,4 @@
-//CURRENT: Changing deleteLetter to work - look for where currentWord updates to fix last letter of last word still being deletable (nothing to update in version control, it's just this message)
+//CURRENT: Created grid dynamically. Starts at row0 instead of row1, now have to change how other parts of code access it (nothing to update in version control, it's just this message)
 //PRIMARY: 
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', 'PROXY'];
@@ -21,13 +21,14 @@ function realSetup() {
   //hide start button (and instructions if we make them), unhide keyboard and grid of guesses
   hideElement('startButton');
   unhideElement('restartGame');
-  unhideElement('drawGrid');
+  // unhideElement('drawGrid');
   unhideElement('gameStuff');
-  unhideElement('row1');
+  // unhideElement('row1');
   answer = randomWord(wordBank);
   console.log("answer: " + answer);
   createCanvas(600, 600);
   createKeyboard();
+  createGrid();
   noLoop();
 }
 
@@ -54,6 +55,21 @@ function createKeyboard() {
   deleteButton.class = keyboard;
   deleteButton.onclick = deleteLetter;
   document.getElementById("keyboard").appendChild(deleteButton);
+}
+
+function createGrid(){
+  for(let i = 0; i < 5; i++){ //loops through rows
+    let x = document.createElement("div");
+    //x.id = "row" + i;
+    document.getElementById("grid").appendChild(x);
+    for(let a = 0; a < 5; a++){ //loops through boxes
+      let z = document.createElement("button");
+      //z.id = "button" + (i*5 + a);
+      z.innerHTML = "_";
+      x.appendChild(z);
+    }
+    
+  }
 }
 
 function deleteLetter() {
