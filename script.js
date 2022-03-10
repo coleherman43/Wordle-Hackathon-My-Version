@@ -56,10 +56,6 @@ function createKeyboard() {
   document.getElementById("keyboard").appendChild(deleteButton);
 }
 
-function createGrid(){
-  for(let i = 0; i < 5; i < )
-}
-
 function deleteLetter() {
   let curr = getButtonId(currentWord, null);
   console.log("deleted " + curr);
