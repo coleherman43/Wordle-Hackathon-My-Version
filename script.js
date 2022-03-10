@@ -1,4 +1,4 @@
-//CURRENT: Changed colors in css
+//CURRENT: Changing deleteLetter to work - look for where currentWord updates to fix last letter of last word still being deletable (nothing to update in version control, it's just this message)
 //PRIMARY: 
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', 'PROXY'];
@@ -48,17 +48,19 @@ function createKeyboard() {
     x.onclick = clickLetter;
     document.getElementById("keyboard").appendChild(x);
   }
+  let deleteButton = document.createElement("button");
+  deleteButton.id = 'deleteButton';
+  deleteButton.innerHTML = 'DELETE';
+  deleteButton.class = keyboard;
+  deleteButton.onclick = deleteLetter;
+  document.getElementById("keyboard").appendChild(deleteButton);
 }
 
-function deleteLetter(id) {
-  console.log('buttonDeleted');
-  document.getElementById(id).innerHTML = "_";
-  // words[1].splice(0,1);
-  // word2.splice(0,1);
-  // word3.splice(0,1);
-  // word4.splice(0,1);
-  // word5.splice(0,1);
-
+function deleteLetter() {
+  let curr = getButtonId(currentWord, null);
+  console.log("deleted " + curr);
+  document.getElementById(curr).innerHTML = "_";
+  words[currentWord].pop();
 }
 
 function clickLetter(e) {
@@ -71,7 +73,7 @@ function clickLetter(e) {
 }
 
 function getButtonId(wordNum, pos){
-  //returns the id of the button where you would update to display a letter on the guess screen
+  //returns the id of the button where you would update to display a letter on the guess screen. If pos is null, function finds last character. otherwise it finds specified position
   console.log("UNDER GETBUTTON ID -----");
   console.log("WORDNUM " + wordNum);
   console.log("POSITION " + pos);
@@ -96,9 +98,9 @@ function addLetter(letter, wordNum) {
   console.log("button text: " + button);
   document.getElementById(button).innerHTML=letter;
   
-  let x = document.createElement("guessedLetter");
-  x.innerHTML = letter;
-  document.getElementById("guessed").appendChild(x);
+  // let x = document.createElement("guessedLetter");
+  // x.innerHTML = letter;
+  // document.getElementById("guessed").appendChild(x);
 
 }
 
@@ -107,8 +109,7 @@ function handleGuess() {
 
   let currentRow = 'row' + (currentWord+1);
   let nextRow = 'row' + (currentWord+2);
-  // console.log("CURRENT ROW: " + currentRow);
-  // console.log("NEXT ROW: " + nextRow);
+
   
   //loss case - when you're out of guesses
   if(currentWord == 4){
