@@ -6,7 +6,7 @@ var correctLetters = [];
 var incorrectLetters = [];
 var closeLetters = [];
 p5.disableFriendlyErrors = true;
-let words = Array(5).fill().map(() => [])
+var words = Array(5).fill().map(() => []);
 var answer = "";
 var currentWord = 0;
 
@@ -110,14 +110,12 @@ function addLetter(letter, wordNum) {
   console.log("Arr: " + words[wordNum]);
 
   words[wordNum].push(letter);
-  let button = getButtonId(wordNum, null);
-  console.log("button text: " + button);
-  document.getElementById(button).innerHTML=letter;
+  // let button = getButtonId(wordNum, null);
+  let grid = document.getElementById("grid");
+  grid.children[wordNum].children[words[wordNum].length-1].innerHTML=letter;
   
-  // let x = document.createElement("guessedLetter");
-  // x.innerHTML = letter;
-  // document.getElementById("guessed").appendChild(x);
-
+  // console.log("button text: " + button);
+  // document.getElementById(button).innerHTML=letter;
 }
 
 function handleGuess() {
@@ -129,15 +127,15 @@ function handleGuess() {
   
   //loss case - when you're out of guesses
   if(currentWord == 4){
-  checkWord(words[currentWord], currentRow);
-  gameOver(false);
-}
+    checkWord(words[currentWord], currentRow);
+    gameOver(false);
+  }
 
-  
   console.log(currentWord);
   console.log("words[currentWord]: " + words[currentWord]);
+  
   checkWord(words[currentWord], currentRow);
-  document.getElementById(nextRow).hidden=false;
+  // document.getElementById(nextRow).hidden=false;
   
   currentWord++;
 }
@@ -180,7 +178,7 @@ function checkLetter(guess, letter, row, position){
 function updateLetter(letter, category, row, position){
   //take a letter and which type it is (right, wrong, close) and give it a color
   let id = keyID(letter);
-
+  
   //testing under here
   let buttonId = getButtonId(currentWord, position+1);
   console.log("UNDER UPDATELETTER ------");
