@@ -1,4 +1,4 @@
-//CURRENT: Created grid dynamically. Starts at row0 instead of row1, now have to change how other parts of code access it (nothing to update in version control, it's just this message)
+//CURRENT: Created grid dynamically. Fixed color. Now trying to fix win screen (changes have been trying to fix this and overall change usage from id to element children of grid)
 //PRIMARY: 
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var wordBank = ['MOUSE', 'COLOR', 'DWARF', 'WATCH', 'BEADS', 'BOARD', 'KNIFE', 'READY', 'TEAMS', 'FIRED', 'HEXED', 'TRAIN', 'CHORD', 'TOUCH', 'PLANE', 'SUPER', 'SWORD', 'BREAD', 'WATER', 'FALSE','WHITE', 'BROWN', 'BLACK', 'START','PIECE', 'PROXY'];
@@ -14,19 +14,14 @@ function setup() {
   createCanvas(0, 0);
   unhideElement('startButton');
   hideElement('restartGame');
-  hideElement('drawGrid');
 }
 
 function realSetup() {
   //hide start button (and instructions if we make them), unhide keyboard and grid of guesses
   hideElement('startButton');
   unhideElement('restartGame');
-  // unhideElement('drawGrid');
-  unhideElement('gameStuff');
-  // unhideElement('row1');
   answer = randomWord(wordBank);
   console.log("answer: " + answer);
-  createCanvas(600, 600);
   createKeyboard();
   createGrid();
   noLoop();
@@ -64,18 +59,16 @@ function createGrid(){
     document.getElementById("grid").appendChild(x);
     for(let a = 0; a < 5; a++){ //loops through boxes
       let z = document.createElement("button");
-      //z.id = "button" + (i*5 + a);
+      z.id = "button" + (i*5 + a);
       z.innerHTML = "_";
       x.appendChild(z);
     }
-    
   }
 }
 
 function deleteLetter() {
-  let curr = getButtonId(currentWord, null);
-  console.log("deleted " + curr);
-  document.getElementById(curr).innerHTML = "_";
+  let curr = getButton(null, null);
+  curr.innerHTML="_";
   words[currentWord].pop();
 }
 
@@ -88,20 +81,25 @@ function clickLetter(e) {
   }
 }
 
-function getButtonId(wordNum, pos){
-  //returns the id of the button where you would update to display a letter on the guess screen. If pos is null, function finds last character. otherwise it finds specified position
-  console.log("UNDER GETBUTTON ID -----");
-  console.log("WORDNUM " + wordNum);
-  console.log("POSITION " + pos);
-  //must convert wordNum to integer
-  
-  if(pos == null){
-    return "button" + ((wordNum)*5 + words[wordNum].length).toString();
+function getButton(wordNum, pos){
+  //returns the button at the most recent position if both are null, otherwise returns button at specified position
+  let grid = document.getElementById("grid");
+  console.log("//////// getButton ///////");
+  console.log("WORDNUM: " + wordNum);
+  console.log("POSITION: " + (pos));
+  if(wordNum == null && pos == null){
+    return grid.children[currentWord].children[words[currentWord].length-1];
   }else{
-    return "button" + (wordNum*5 + pos).toString();
+    return grid.children[wordNum].children[pos];
   }
-  console.log("BUTTON ID: " + buttonId);
+  
 }
+
+// function getKeyboardKey(key){
+//   let keyboard = document.getElementById("keyboard");
+  
+//   keyboard.children[]
+// }
 
 function addLetter(letter, wordNum) {
   //add an input letter to the word section
@@ -110,19 +108,16 @@ function addLetter(letter, wordNum) {
   console.log("Arr: " + words[wordNum]);
 
   words[wordNum].push(letter);
-  // let button = getButtonId(wordNum, null);
-  let grid = document.getElementById("grid");
-  grid.children[wordNum].children[words[wordNum].length-1].innerHTML=letter;
-  
-  // console.log("button text: " + button);
-  // document.getElementById(button).innerHTML=letter;
+  let pos = words[wordNum].length-1;
+  let button = getButton(wordNum, pos);
+  button.innerHTML=letter;
 }
 
 function handleGuess() {
   //the rest of the boxes should be hidden. This unhides the next box, and determines which letters were right / close / wrong
 
-  let currentRow = 'row' + (currentWord+1);
-  let nextRow = 'row' + (currentWord+2);
+  let currentRow = currentWord;
+  let nextRow = currentWord+1;
 
   
   //loss case - when you're out of guesses
@@ -135,7 +130,6 @@ function handleGuess() {
   console.log("words[currentWord]: " + words[currentWord]);
   
   checkWord(words[currentWord], currentRow);
-  // document.getElementById(nextRow).hidden=false;
   
   currentWord++;
 }
@@ -160,58 +154,55 @@ function checkWord(guess, row){
 
 function checkLetter(guess, letter, row, position){
   //for a letter that's passed in, add it to an array (correct letters, wrong, etc.) and then pass it to updateLetter
-  
+  console.log("////// UNDER CHECKLETTER //////");
+  console.log("ROW: " + row);
+  console.log("POSITION: " + position);
+  let button = getButton(row, position);
+  console.log("BUTTON: " + button);
+    
   if(answer.indexOf(letter) == -1){
     incorrectLetters.push(letter);
-    updateLetter(letter, 'incorrect', row, position);
+    updateLetter('incorrect', letter, button);
     
   }else if(answer.indexOf(letter) == guess.indexOf(letter)){
     correctLetters.push(letter);
-    updateLetter(letter, 'correct', row, position);
+    updateLetter('correct', letter, button);
     
   }else{
     closeLetters.push(letter);
-    updateLetter(letter, 'close', row, position);
+    updateLetter('close', letter, button);
   }
 }
 
-function updateLetter(letter, category, row, position){
+function updateLetter(category, letter, button){
   //take a letter and which type it is (right, wrong, close) and give it a color
-  let id = keyID(letter);
-  
-  //testing under here
-  let buttonId = getButtonId(currentWord, position+1);
-  console.log("UNDER UPDATELETTER ------");
-  console.log("BUTTONID " + buttonId);
+  //TO FIX HERE: getButton NEEDS TO BE ABLE TO SPECIFY A POSITION (BC THIS FUNCTION IS AFTER SUBMITTING A WORD) INSTEAD OF USING LAST BUTTON
 
-  // console.log("ID: " + id);
+  let id = keyID(letter);
+
+
+  console.log("UNDER UPDATELETTER ------");
+
   if(category == 'correct'){
     // document.getElementById(id).className='keyboard correct';
-    changeButtonColor(buttonId, 'green');
+    changeButtonColor(button, 'green');
   }
   if(category == 'incorrect'){
     document.getElementById(id).className='keyboard incorrect';
-    changeButtonColor(buttonId, 'red');
+    //MAYBE REPLACE LINE ABOVE BY FINDING BUTTON IN DOM AND UPDATING LIKE THAT
+    changeButtonColor(button, 'red');
   }
   if(category == 'close'){
     // document.getElementById(id).className='keyboard close';
-    changeButtonColor(buttonId, 'yellow');
+    changeButtonColor(button, 'yellow');
   }
 }
 
-function changeButtonColor(id, color){
+function changeButtonColor(button, color){
   console.log("UNDER CHANGEBUTTONCOLOR -----");
-  console.log("ID " + id);
+  // console.log(button.id);
   console.log("color " + color);
-  if(color == 'red'){
-    document.getElementById(id).style.backgroundColor='red';
-  }
-  if(color == 'yellow'){
-    document.getElementById(id).style.backgroundColor='yellow';
-  }
-  if(color == 'green'){
-    document.getElementById(id).style.backgroundColor='green';
-  }
+  button.style.backgroundColor=color;
 }
 
 function keyID(letter){
