@@ -115,13 +115,14 @@ function addLetter(letter, wordNum) {
 
 function handleGuess() {
   //the rest of the boxes should be hidden. This unhides the next box, and determines which letters were right / close / wrong
-
+  console.log("HANDLE OCCURED -0-0-0-0-0-0--0-0-");
   let currentRow = currentWord;
   let nextRow = currentWord+1;
 
   
   //loss case - when you're out of guesses
   if(currentWord == 4){
+    console.log("WIN CHECK OCCURED 00-0-0-0-0--0-0-0-0-0");
     checkWord(words[currentWord], currentRow);
     gameOver(false);
   }
@@ -221,21 +222,14 @@ window.location = ""; // reloads tab :))
 
 function gameOver(win) {
   //display text for whether you guessed the word or not, have a restart button to call restart function
-
+  console.log("WIN OR LOSE: " + win);
   hideElement('gameStuff');
-  if(win){
-    screenMessage('YOU WIN');
+  if(win){ 
+    alert('YOU WIN');
   }else{
-    screenMessage('YOU LOSE');
+    alert('YOU LOSE');
   }
 }
 
-function screenMessage(message){
-  background(0);
-  textSize(60);
-  textAlign(CENTER);
-  fill(1000, 0, 0);
-  text(message, width / 2, height / 2);
-  noLoop();
-}
+
 
